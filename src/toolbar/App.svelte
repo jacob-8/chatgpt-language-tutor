@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { chineseLanguageConversationPrompt } from "./prompts";
+
   let LANGUAGE = "cmn-Hant-TW";
   let listening = false;
   let message = "";
@@ -45,20 +47,27 @@
   }
 
   function sendToChatGPT(message: string) {
-    const forms = document.querySelectorAll("form");
-    let textValue = forms[0].querySelectorAll("textarea")[0].value;
-    forms[0].querySelectorAll("textarea")[0].value = textValue + `${message} `;
-    forms[0].querySelectorAll("textarea")[0].focus();
+    const form = document.querySelectorAll("form")[0];
+    const textarea = form.querySelectorAll("textarea")[0];
+    textarea.focus();
+    textarea.value += `${message} `;
+    const parent = textarea.parentElement;
+    const submitButton = parent.querySelector('button');
+    submitButton.disabled = false;
+    submitButton.click();
   }
 </script>
 
 <div class="bg-black w-full flex items-center h-50px pl-2">
   Talk w/ GPT
   <div class="mr-auto" />
+  <button on:click={() => sendToChatGPT(chineseLanguageConversationPrompt)} class="p-3 hover:bg-gray-900">
+    Send Language Learning Prompt
+  </button>
   <button on:click={listen} class="p-3 hover:bg-gray-900">
     <span
-      class:text-red={!listening}
-      class:text-green={listening}
+      class:text-green={!listening}
+      class:text-red={listening}
       class="i-mdi-microphone text-lg"
     />
   </button>
