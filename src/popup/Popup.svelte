@@ -11,7 +11,7 @@
 
     chrome.scripting.executeScript({
       target: { tabId: tab.id },
-      function: saveChatGPTConversation,
+      func: saveChatGPTConversation,
     });
   }
 </script>

@@ -20,11 +20,11 @@ export default defineManifest({
   },
 
   // "permissions": [ "activeTab", "storage" ],
-  // "host_permissions": [
+  
+  permissions: ["activeTab", "scripting"], // for downloading conversation
+  // host_permissions: [
   //   "https://chat.openai.com/chat/*"
   // ],
-
-  permissions: ["activeTab", "scripting"], // for downloading conversation
   // "commands": {
   //   "save_conversation": {
   //     "suggested_key": {
