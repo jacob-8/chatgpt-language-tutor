@@ -1,0 +1,1 @@
+export const first = `Use 繁體中文`
