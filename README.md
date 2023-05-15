@@ -1,6 +1,6 @@
 # ChatGPT Language Tutor
 
-## Get started
+## Developing
 
 - `pnpm install`
 - `pnpm dev`
@@ -10,16 +10,22 @@
 
 Uses https://crxjs.dev/vite-plugin/
 
+## Build
+
+- `pnpm build`
+- On desktop you can add the result `dist-prod` folder as a Chrome extension
+- On mobile you can install the Kiwi browser then use the resulting `language-tutor-extension.zip` archive
+
 ## Features
 
 - Download Conversation
 - Records Mandarin and submit to ChatGPT
 - Speaks ChatGPT's response back to user
+- Adjust rate of speech
 
 ## Roadmap
 
-- Adjust speed of generated speech
-- Integrate more pleasant voices
+- Integrate [more pleasant voices](https://cloud.google.com/text-to-speech)
 - Use WhisperAI instead of Chrome SpeechRecognition for greater accuracy
 - Connect to user's known words to then ask ChatGPT to explain the usage of new words found in conversation
 

@@ -1,19 +1,22 @@
 <script lang="ts">
-  let checkInterval;
+  let utterance: SpeechSynthesisUtterance;
 
-  let receivedMessages = [];
+  let checkInterval;
+  let messages: string[] = [];
+  let isSpeaking = false;
+  let rate = 60;
 
   function continuouslyCheckForMessages() {
     checkInterval = setInterval(checkForNewMessage, 100);
   }
 
   function checkForNewMessage() {
-    const messages = document.querySelectorAll(".text-base");
-    const hasNewMessage = messages.length > receivedMessages.length;
+    const messageSections = document.querySelectorAll(".text-base");
+    const hasNewMessage = messageSections.length > messages.length;
     if (!hasNewMessage) return console.log("no new messages");
 
-    const lastMessage = messages[messages.length - 1];
-    if (!lastMessage) return console.log("no text yet");
+    const lastMessage = messageSections[messageSections.length - 1];
+    if (!lastMessage) return;
 
     const lastMessageContainer = lastMessage.querySelector(
       ".markdown"
@@ -24,7 +27,8 @@
     if (isStreamingIn) return console.log("wait for streaming to finish");
 
     const lastMessageContent = lastMessageContainer.innerText;
-    speekLatestMessage(lastMessageContent);
+    messages = [...messages, lastMessageContent];
+    speek(lastMessageContent);
     stopCheckingForNewMessage();
   }
 
@@ -32,18 +36,37 @@
     clearInterval(checkInterval);
   }
 
-  function speekLatestMessage(message: string) {
-    receivedMessages = [...receivedMessages, message];
-    console.log({ message });
-    const utterance = new SpeechSynthesisUtterance(message);
+  function speek(message: string) {
+    utterance = new SpeechSynthesisUtterance(message);
     utterance.lang = "zh-TW";
-    utterance.rate = 0.6;
+    utterance.rate = rate / 100;
     speechSynthesis.speak(utterance);
+    isSpeaking = true;
+    utterance.onend = () => {
+      isSpeaking = false;
+    };
+  }
+
+  function stopSpeaking() {
+    speechSynthesis.cancel();
+    isSpeaking = false;
   }
 </script>
 
-<button on:click={continuouslyCheckForMessages} class="p-3 hover:bg-gray-800"
-  >Check</button
->
+Rate: {rate}%
+<input class="mx-2" type="range" min="25" max="100" bind:value={rate} />
 
-<slot {continuouslyCheckForMessages} />
+{#if !isSpeaking && messages.length > 0}
+  <button
+    on:click={() => speek(messages[messages.length - 1])}
+    class="p-3 hover:bg-gray-800"
+    ><span class="i-material-symbols-repeat" /></button
+  >
+{/if}
+{#if isSpeaking}
+  <button on:click={stopSpeaking} class="p-3 hover:bg-gray-800"
+    ><span class="i-ic-baseline-stop text-red text-xl" /></button
+  >
+{/if}
+
+<slot {continuouslyCheckForMessages} hasMessages={!!messages.length} />

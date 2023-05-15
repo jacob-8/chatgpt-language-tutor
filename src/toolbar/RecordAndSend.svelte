@@ -2,6 +2,8 @@
   import { createEventDispatcher } from "svelte";
   import { chineseLanguageConversationPrompt } from "./prompts";
 
+  export let hasMessages = false;
+
   let LANGUAGE = "cmn-Hant-TW";
   let listening = false;
   let message = "";
@@ -64,12 +66,14 @@
   }
 </script>
 
-<button
-  on:click={() => sendToChatGPT(chineseLanguageConversationPrompt)}
-  class="p-3 hover:bg-gray-800"
->
-  送給學語言提示
-</button>
+{#if !hasMessages}
+  <button
+    on:click={() => sendToChatGPT(chineseLanguageConversationPrompt)}
+    class="p-3 hover:bg-gray-800"
+  >
+    送給學語言提示
+  </button>
+{/if}
 
 <button on:click={listen} class="p-3 hover:bg-gray-800">
   <span
