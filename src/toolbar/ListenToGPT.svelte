@@ -53,8 +53,10 @@
   }
 </script>
 
-Rate: {rate}%
-<input class="mx-2" type="range" min="25" max="100" bind:value={rate} />
+<span class="hidden sm:inline">
+  Rate:
+</span> {rate}%
+<input class="mx-2 w-80px" type="range" min="25" max="100" bind:value={rate} />
 
 {#if !isSpeaking && messages.length > 0}
   <button

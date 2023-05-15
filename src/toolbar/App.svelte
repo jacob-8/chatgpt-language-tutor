@@ -6,7 +6,7 @@
 <div
   class="bg-gray-900 border-b border-gray w-full flex items-center h-50px pl-2 text-white"
 >
-  Language Tutor
+  Tutor
   <div class="mr-auto" />
   
   <ListenToGpt let:continuouslyCheckForMessages let:hasMessages>
