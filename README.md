@@ -14,11 +14,13 @@ Uses https://crxjs.dev/vite-plugin/
 
 - Download Conversation
 - Records Mandarin and submit to ChatGPT
+- Speaks ChatGPT's response back to user
 
 ## Roadmap
 
+- Adjust speed of generated speech
+- Integrate more pleasant voices
 - Use WhisperAI instead of Chrome SpeechRecognition for greater accuracy
-- Speak ChatGPT's response back to user
 - Connect to user's known words to then ask ChatGPT to explain the usage of new words found in conversation
 
 ## Inspiration

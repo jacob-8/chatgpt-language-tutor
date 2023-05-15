@@ -5,7 +5,7 @@ export default defineManifest({
   name: "ChatGPT Language Tutor",
   description: "Learn a language using ChatGPT",
   version: "1.0.0",
-  action: { 
+  action: {
     default_popup: "popup.html",
     default_icon: {
       16: "icon16.png",
@@ -20,8 +20,10 @@ export default defineManifest({
   },
 
   // "permissions": [ "activeTab", "storage" ],
-  
-  permissions: ["activeTab", "scripting"], // for downloading conversation
+
+  permissions: [
+    "activeTab", "scripting", // downloading conversation
+  ],
   // host_permissions: [
   //   "https://chat.openai.com/chat/*"
   // ],
@@ -40,6 +42,8 @@ export default defineManifest({
   // },
   // options_page: 'src/index.html',
 
-  content_scripts: [{ js: ["src/content.js"], 
-  matches: ["https://chat.openai.com/*"] }],
+  content_scripts: [{
+    js: ["src/content.js"],
+    matches: ["https://chat.openai.com/*"]
+  }],
 });
